@@ -27,7 +27,9 @@
                 </div>
                 <div class="col-md-8 mt-4">
                     <h5>Mapa</h5>
-                    
+                    <agm-map [latitude]="lat" [longitude]="lng">
+                        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                      </agm-map>
                     <p></p>
                 </div>
                 <div class="col-md-8 mt-4">
