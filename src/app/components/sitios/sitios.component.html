@@ -29,6 +29,35 @@
                     <h5>Mapa</h5>
                     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)"
                         (mapReady)="mapReadyHandler($event)">
+                        <agm-marker #gm *ngFor="let sitio of sitosCercanos; let i = index"
+                            [iconUrl]='sitosCercanos[i].punto.icono' [animation]="sitosCercanos[i].punto.animation"
+                            [latitude]="sitosCercanos[i].punto.latitud" [longitude]="sitosCercanos[i].punto.longitud"
+                            (markerClick)="clickedMarker(infoWindow,gm, i)"
+                            [markerDraggable]="sitosCercanos[i].punto.draggable"
+                            (dragEnd)="markerDragEnd($event)">
+                            <agm-info-window *ngIf="sitio.punto.tipo ===2" (infoWindowClose)="cerrar()" #infoWindow>
+                                <div class="wpgmp_infowindow fc-infowindow-default">
+                                    <div class="wpgmp_iw_content">
+                                        <div class="fc-main">
+                                            <div class="fc-item-title">{{sitosCercanos[i].punto.idiomas[idioma].nombre}}
+                                                <span
+                                                    class="fc-badge info">{{sitosCercanos[i].punto.categoria.idiomas[idioma].nombre}}</span>
+                                            </div>
+                                            <div class="fc-item-featured_image"><img
+                                                    [src]="sitosCercanos[i].punto.imagen"> </div>
+                                            <p>{{sitosCercanos[i].punto.idiomas[idioma].descripcion}}</p>
+                                            <address><b>{{ 'mapa.direccion' }} :
+                                                </b>{{sitosCercanos[i].punto.direccion}},
+                                                {{sitosCercanos[i].punto.telefono}}
+                                            </address>
+                                            <p><a target="_blank" class="fc-btn fc-btn-small fc-btn-red"
+                                                    [href]="sitosCercanos[i].punto.url">{{ 'mapa.visitarSitio' }}</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </agm-info-window>
+                        </agm-marker>
                         <agm-direction [origin]="origin" [destination]="destination" (onChange)="onChange($event)"
                             (onResponse)="onResponse($event)" (destinationDrag)="getcoords('direction',$event)"
                             (originDrag)="getcoords('direction',$event)">
@@ -40,11 +69,15 @@
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
-                                <input type="text" class="form-control" id="" placeholder="km">
+                                <input type="text" class="form-control" id="" placeholder="{{distancia}} km"
+                                    [(ngModel)]="distancia">
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <a href="" class="btn btn-primary full-width">Sitios Cercanos</a>
+                            <button class="btn btn-primary full-width" type="button"
+                                (click)="obtenerSitioCercanos()">Sitios Cercanos
+                            </button>
+
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">

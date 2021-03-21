@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SitiosService } from '../../services/sitios.service'
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
 import { MapsAPILoader } from '@agm/core';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-sitios',
   templateUrl: './sitios.component.html',
@@ -22,15 +23,20 @@ export class SitiosComponent implements OnInit {
   public idioma:any = "es";
   public direccionBusquedaOrigen: string = "";
   public direccionBusquedaDestino: string = "";
-  public distancia = 72;
+  public distancia = 2;
   public direccionActual = "";
   public zoom = 11;
-
+  /*
   private iconBase = '../../../assets/icons/mapa/'
   private urlImagenBase = '../../../assets/images/sitios/'
+  */
+  private iconBaseLocal = '../../../assets/icons/mapa/'
+  private iconBase = environment.iconBase
+  private urlImagenBase = environment.urlImagenBase
   private iconEstaAqui = 'you-are-here-2.png'
   public origin: any;
   public destination: any;
+  
 
   public mapa: any;
   private mapClickListener: any;
@@ -122,7 +128,7 @@ export class SitiosComponent implements OnInit {
   }
 
 
-  markerDragEnd($event: any) {
+  public markerDragEnd($event: any) {
     console.log($event);
     this.lat = $event.coords.lat;
     this.lng = $event.coords.lng;
@@ -252,7 +258,7 @@ export class SitiosComponent implements OnInit {
       let punto = {
         latitud: +lat,
         longitud: +lng,
-        distancia: +72000
+        distancia: +this.distancia * 1000
       }
       console.log(punto);
       this.consultarSitioCercanos(punto)
@@ -308,7 +314,7 @@ export class SitiosComponent implements OnInit {
         "latitud": +latitud,
         "longitud": +longitud,
         "animation": 'BOUNCE',
-        "icono": this.iconBase + this.iconEstaAqui,
+        "icono": this.iconBaseLocal + this.iconEstaAqui,
         "nombre": "Estas aquí",
         "idiomas": idiomas,
         "descripcion": "",
@@ -332,10 +338,10 @@ export class SitiosComponent implements OnInit {
       this.sitosCercanos.push({
         punto: {
           "tipo": 2,
-          "latitud": +sito.punto.latitud,
-          "longitud": +sito.punto.longitud,
+          "latitud": +sito.punto.coordinates[1],
+          "longitud": +sito.punto.coordinates[0],
           "animation": 'DROP',
-          "icono": this.iconBase + sito.icono,
+          "icono": this.iconBase + sito.categoria.urlImagen,
           "nombre": sito.nombre,
           "idiomas": sito.idiomas,
           "categoria": sito.categoria,
