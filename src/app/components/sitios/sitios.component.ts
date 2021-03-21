@@ -32,7 +32,7 @@ export class SitiosComponent implements OnInit {
   public origin: any;
   public destination: any;
 
-  private mapa: any;
+  public mapa: any;
   private mapClickListener: any;
   private zone: any;
   

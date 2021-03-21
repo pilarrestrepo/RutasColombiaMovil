@@ -27,20 +27,13 @@
                 </div>
                 <div class="col-md-8 mt-4">
                     <h5>Mapa</h5>
-                    <agm-map [latitude]="lat" [longitude]="lng">
-                        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-                    </agm-map>
-
                     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)"
-                    (mapReady)="mapReadyHandler($event)">
-           
-                      <agm-direction [origin]="origin" [destination]="destination" (onChange)="onChange($event)"
-                        (onResponse)="onResponse($event)" (destinationDrag)="getcoords('direction',$event)"
-                        (originDrag)="getcoords('direction',$event)">
-                      </agm-direction>
+                        (mapReady)="mapReadyHandler($event)">
+                        <agm-direction [origin]="origin" [destination]="destination" (onChange)="onChange($event)"
+                            (onResponse)="onResponse($event)" (destinationDrag)="getcoords('direction',$event)"
+                            (originDrag)="getcoords('direction',$event)">
+                        </agm-direction>
                     </agm-map>
-
-
                     <p></p>
                 </div>
                 <div class="col-md-12 mt-4">
@@ -57,25 +50,18 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Lugar de partida"
                                     (keydown.enter)="$event.preventDefault()" id="direccionBusquedaOrigen"
-                                    placeholder="{{ 'mapa.buscarSitioInicio'  }}" autocorrect="off"
-                                    autocapitalize="off" spellcheck="off" #busquedaOrigen
-                                    [(ngModel)]="direccionBusquedaOrigen">
+                                    placeholder="{{ 'mapa.buscarSitioInicio'  }}" autocorrect="off" autocapitalize="off"
+                                    spellcheck="off" #busquedaOrigen [(ngModel)]="direccionBusquedaOrigen">
                             </div>
                         </div>
-
-
-
-
                         <div class="col-md-3">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Lugar de llegado"
                                     (keydown.enter)="$event.preventDefault()" id="direccionBusquedaDestino"
-                                    placeholder="{{ 'mapa.buscarSitioFin'  }}" autocorrect="off"
-                                    autocapitalize="off" spellcheck="off" #busquedaDestino
-                                    [(ngModel)]="direccionBusquedaDestino">
+                                    placeholder="{{ 'mapa.buscarSitioFin'  }}" autocorrect="off" autocapitalize="off"
+                                    spellcheck="off" #busquedaDestino [(ngModel)]="direccionBusquedaDestino">
                             </div>
                         </div>
-
                         <div class="col-md-2">
                             <a href="" class="btn btn-primary full-width">Consultar Ruta</a>
                         </div>
@@ -84,8 +70,6 @@
             </div>
         </div>
     </section>
-
-
     <footer class="bgDark">
         <div class="container">
 
