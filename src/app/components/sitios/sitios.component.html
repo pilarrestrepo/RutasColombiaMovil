@@ -21,9 +21,80 @@
     <section id="contact">
         <div class="container">
             <div class="row">
-                <div class="col-md-2 mt-4">
+                <div class="col-md-2 mt-12">
                     <h5>Sitios en tu <b>ruta.</b></h5>
-                    <p></p>
+                    <div class="sidebar-left sidebar-fixed animate fadeUp animation-fast">
+                        <div class="sidebar animate fadeUp">
+                            <div class="sidebar-content">
+                                <div id="sidebar-list" class="sidebar-menu chat-sidebar list-group position-relative">
+                                    <div id="chat-sidenav">
+                                        <!-- <div class="sidebar-list-padding app-sidebar sidenav" id="chat-sidenav"> -->
+                                        <!-- Sidebar Header -->
+                                        <div class="sidebar-header">
+                                            <div class="row valign-wrapper">
+                                                <div class="col s12">
+                                                    <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
+                                                        {{ 'mapa.tituloListaSitios' }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/ Sidebar Header -->
+
+                                        <!-- Sidebar Search -->
+                                        <div class="sidebar-search animate fadeUp">
+                                            <div class="search-area">
+                                                <i class="material-icons search-icon">search</i>
+                                                <input type="text" placeholder="" class="app-filter" id="chat_filter">
+                                            </div>
+                                        </div>
+                                        <!--/ Sidebar Search -->
+
+                                        <!-- Sidebar Content List -->
+                                        <div class="sidebar-content sidebar-chat">
+                                            <div class="chat-list">
+                                                <ng-container *ngFor="let sitio of sitosCercanos; let i = index">
+                                                    <div class="chat-user animate fadeUp delay-1"
+                                                        *ngIf="sitio.punto.tipo ===2">
+                                                        <div class="user-section">
+                                                            <div class="row valign-wrapper">
+                                                                <!--         <div class="col s2 media-image online pr-0">
+                                                                    <div class="star-timing">
+                                                                        <div class="favorite">
+                                                                            <i
+                                                                                class="material-icons amber-text">star</i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                                <div class="col s12">
+                                                                    <span class="new badge gradient-45deg-purple-deep-orange gradient-shadow"
+                                                                        data-badge-caption="">{{sitosCercanos[i].punto.distancia}}</span>
+                                                                    <p class="m-0 blue-grey-text text-darken-4 font-weight-700"> 
+                                                                        {{sitosCercanos[i].punto.idiomas[idioma].nombre}}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row valign-wrapper">
+                                                                <div class="col s12">
+                                                                    <p class="m-0 info-text">
+                                                                        {{sitosCercanos[i].punto.idiomas[idioma].descripcion}}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                            <div class="no-data-found">
+                                                <h6 class="center">No Results Found</h6>
+                                            </div>
+                                        </div>
+                                        <!--/ Sidebar Content List -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-8 mt-4">
                     <h5>Mapa</h5>
@@ -33,8 +104,7 @@
                             [iconUrl]='sitosCercanos[i].punto.icono' [animation]="sitosCercanos[i].punto.animation"
                             [latitude]="sitosCercanos[i].punto.latitud" [longitude]="sitosCercanos[i].punto.longitud"
                             (markerClick)="clickedMarker(infoWindow,gm, i)"
-                            [markerDraggable]="sitosCercanos[i].punto.draggable"
-                            (dragEnd)="markerDragEnd($event)">
+                            [markerDraggable]="sitosCercanos[i].punto.draggable" (dragEnd)="markerDragEnd($event)">
                             <agm-info-window *ngIf="sitio.punto.tipo ===2" (infoWindowClose)="cerrar()" #infoWindow>
                                 <div class="wpgmp_infowindow fc-infowindow-default">
                                     <div class="wpgmp_iw_content">
