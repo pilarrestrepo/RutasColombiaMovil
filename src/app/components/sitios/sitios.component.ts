@@ -18,7 +18,7 @@ export class SitiosComponent implements OnInit {
   public error = "";
   public cargando = false;
   public suscribirEventoCambiarIdioma: any
-  public sitosCercanos :any = [];
+  public sitosCercanos :any = [];  
   public infoWindow:any = null
   public idioma:any = "es";
   public direccionBusquedaOrigen: string = "";
@@ -41,7 +41,8 @@ export class SitiosComponent implements OnInit {
   public mapa: any;
   private mapClickListener: any;
   private zone: any;
-  
+  public filterargs = {nombre: ''};
+  public searchTerm:string="";
 
   @ViewChild(GoogleMap, { static: false })
   map!: GoogleMap;
@@ -120,7 +121,7 @@ export class SitiosComponent implements OnInit {
         this.zoom = 8;
         this.origin = { lat: position.coords.latitude, lng: position.coords.longitude };
 
-        this.sitosCercanos = [];
+        this.sitosCercanos = [];        
         this.mostrarEstoyAqui(position.coords.latitude, position.coords.longitude);
         this.getAddress(this.lat, this.lng);
       });
@@ -284,8 +285,8 @@ export class SitiosComponent implements OnInit {
           this.error = error;
         });
   }
-  borrarSitiosCercanos() {
-    this.sitosCercanos = [];
+  borrarSitiosCercanos() {    
+    this.sitosCercanos = [];    
   }
   mostrarEstoyAqui(latitud:any, longitud:any) {    
     let idiomas = {
@@ -332,7 +333,8 @@ export class SitiosComponent implements OnInit {
 
 
   mostrarSitiosCercanos(punto: any, sitosCercanos: any) {
-    this.sitosCercanos = [];
+    this.sitosCercanos = [];    
+    
     this.mostrarEstoyAqui(punto.latitud, punto.longitud);
     for (let sito of sitosCercanos) {
       this.sitosCercanos.push({
@@ -353,7 +355,7 @@ export class SitiosComponent implements OnInit {
           "draggable": true
 
         }
-      })
+      })     
     }
     console.log(this.sitosCercanos)
   }

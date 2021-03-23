@@ -44,7 +44,7 @@
                                         <div class="sidebar-search animate fadeUp">
                                             <div class="search-area">
                                                 <i class="material-icons search-icon">search</i>
-                                                <input type="text" placeholder="" class="app-filter" id="chat_filter">
+                                                <input type="text" placeholder="" [(ngModel)]="searchTerm" name="searchTerm"  class="app-filter" id="chat_filter">
                                             </div>
                                         </div>
                                         <!--/ Sidebar Search -->
@@ -52,7 +52,7 @@
                                         <!-- Sidebar Content List -->
                                         <div class="sidebar-content sidebar-chat">
                                             <div class="chat-list">
-                                                <ng-container *ngFor="let sitio of sitosCercanos; let i = index">
+                                                <ng-container *ngFor="let sitio of sitosCercanos | filtroSitios:searchTerm; let i = index">
                                                     <div class="chat-user animate fadeUp delay-1"
                                                         *ngIf="sitio.punto.tipo ===2">
                                                         <div class="user-section">

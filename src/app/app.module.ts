@@ -11,10 +11,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { GoogleMapsModule } from '@angular/google-maps'
 import { AgmDirectionModule } from 'agm-direction';
+import { FiltroSitiosPipe } from './util/FiltroSitiosPipe';
 @NgModule({
   declarations: [
     AppComponent,
-    SitiosComponent
+    SitiosComponent,
+    FiltroSitiosPipe
   ],
   imports: [
     BrowserModule,
