@@ -1,6 +1,6 @@
 export const environment = {
-  dominioServicio: "http://186.155.206.74:10010/",   
-  iconBase: 'http://186.155.206.74:10010/',
-  urlImagenBase: 'http://186.155.206.74:10010/',  
+  dominioServicio: "http://186.155.206.74:11001/",   
+  iconBase: 'http://186.155.206.74:11001/',
+  urlImagenBase: 'http://186.155.206.74:11001/',  
   production: true
 };
