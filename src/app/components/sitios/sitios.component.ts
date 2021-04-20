@@ -11,16 +11,16 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./sitios.component.css']
 })
 export class SitiosComponent implements OnInit {
-  private geoCoder:any;
+  private geoCoder: any;
 
   public lat = 0;
   public lng = 0;
   public error = "";
   public cargando = false;
   public suscribirEventoCambiarIdioma: any
-  public sitosCercanos :any = [];  
-  public infoWindow:any = null
-  public idioma:any = "es";
+  public sitosCercanos: any = [];
+  public infoWindow: any = null
+  public idioma: any = "es";
   public direccionBusquedaOrigen: string = "";
   public direccionBusquedaDestino: string = "";
   public distancia = 2;
@@ -36,13 +36,15 @@ export class SitiosComponent implements OnInit {
   private iconEstaAqui = 'you-are-here-2.png'
   public origin: any;
   public destination: any;
-  
+
 
   public mapa: any;
   private mapClickListener: any;
   private zone: any;
-  public filterargs = {nombre: ''};
-  public searchTerm:string="";
+  public filterargs = { nombre: '' };
+  public searchTerm: string = "";
+  
+  private coordenadasRuta!: any[];
 
   @ViewChild(GoogleMap, { static: false })
   map!: GoogleMap;
@@ -63,10 +65,10 @@ export class SitiosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     //this.suscribirEventoCambiarIdioma = this.eventoCambiarIdioma.subscribe(() => this.establecerIdioma())
     //load Places Autocomplete
-    
+
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
@@ -121,7 +123,7 @@ export class SitiosComponent implements OnInit {
         this.zoom = 8;
         this.origin = { lat: position.coords.latitude, lng: position.coords.longitude };
 
-        this.sitosCercanos = [];        
+        this.sitosCercanos = [];
         this.mostrarEstoyAqui(position.coords.latitude, position.coords.longitude);
         this.getAddress(this.lat, this.lng);
       });
@@ -136,8 +138,8 @@ export class SitiosComponent implements OnInit {
     this.getAddress(this.lat, this.lng);
   }
 
-  getAddress(latitude:any, longitude:any) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results:any, status:any) => {
+  getAddress(latitude: any, longitude: any) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results: any, status: any) => {
       console.log(results);
       console.log(status);
       if (status === 'OK') {
@@ -145,7 +147,7 @@ export class SitiosComponent implements OnInit {
           this.zoom = 12;
           this.direccionBusquedaOrigen = results[0].formatted_address;
           this.direccionActual = results[0].formatted_address;
-          
+
         } else {
           window.alert('No results found');
         }
@@ -174,54 +176,111 @@ export class SitiosComponent implements OnInit {
     });
     return promesa;
   } */
-  obtenerValorPropiedad(objeto:any, propiedad:any): string {
+  obtenerValorPropiedad(objeto: any, propiedad: any): string {
     let valor = Object.keys(objeto).map(key => objeto[propiedad]);
     return valor[0];
   }
   cerrar() {
     console.log("cerrar")
-    this.sitosCercanos.forEach((value:any, i:any) => {
+    this.sitosCercanos.forEach((value: any, i: any) => {
       this.sitosCercanos[i].punto.animation = null
 
     });
   }
-  getcoords(type:any, event:any) {
+  getcoords(type: any, event: any) {
     console.log("getcoords")
     console.log(type)
     console.log(event)
     let coords = JSON.stringify(event);
     let coords3 = JSON.parse(coords);
+
+
+
+
+    /*
     console.log(coords3);
+    let coordenadas: { latitud: any; longitud: any; }[] = [];
+    coords3.forEach(function (valor: any) {
+      let coordenada = {
+        "latitud": valor.lat,
+        "longitud": valor.lng,
+      }
+
+      coordenadas.push(coordenada)
+    });
+
     console.log("updated longitude :: " + coords3.lng);
+    console.log("coordenadas :: " , coordenadas);
+    */
   }
-  onChange(event:any) {
+  //https://stackoverflow.com/questions/16180104/get-a-polyline-from-google-maps-directions-v3
+  //https://webapps.stackexchange.com/questions/34159/how-to-convert-google-map-route-into-array-of-coordinates
+  //https://maps.googleapis.com/maps/api/directions/json?origin=Toronto&destination=Montreal&avoid=highways&mode=bicycling&key=AIzaSyDBNR37FRIeI7ixrWSOFK9QF_SkM9WVTMc
+  onChange(event: any) {
     console.log("onChange")
     console.log(event)
     var route = event.routes[0];
-    var points = new Array();
-    var legs = route.legs;
-    for (let i = 0; i < legs.length; i++) {
-      var steps = legs[i].steps;
-      for (let j = 0; j < steps.length; j++) {
-        var nextSegment = steps[j].path;
-        for (let k = 0; k < nextSegment.length; k++) {
-          points.push(nextSegment[k]);
-        }
-      }
+
+    var request = {
+      origin: null,
+      destination: null,
+      travelMode: 'DRIVING'
+
+    };
+
+    var directionsData = event.routes[0].legs[0];
+    
+    this.coordenadasRuta = [];    
+    console.log("directionsData.steps") 
+    for (var i = 0; i < directionsData.steps.length; i++) {
+      this.coordenadasRuta.push({
+        "latitud":directionsData.steps[i].start_point.lat(),
+        "longitud":directionsData.steps[i].start_point.lng()
+      })
     }
+    console.log("coordenadas",this.coordenadasRuta) 
+    
+
+    /*
+        var points = new Array();
+        var legs = route.legs;
+        for (let i = 0; i < legs.length; i++) {
+          var steps = legs[i].steps;
+          for (let j = 0; j < steps.length; j++) {
+            var nextSegment = steps[j].path;
+            for (let k = 0; k < nextSegment.length; k++) {
+              points.push(nextSegment[k]);
+              //console.log("coordenadas :: " , nextSegment[k].lat , nextSegment[k].lng);
+            }
+          }
+          
+        }*/
+    /*
     console.log(points)
+    
+    let coordenadas: { latitud: any; longitud: any; }[] = [];
+    points.forEach(function (valor: any) {
+      let coordenada = {
+        "latitud": valor.lat,
+        "longitud": valor.lng,
+      }
+
+      coordenadas.push(coordenada)
+    });    
+    console.log("coordenadas :: " , coordenadas);
+    */
   }
-  onResponse(event:any) {
+  onResponse(event: any) {
     console.log("onResponse")
 
     console.log(event)
   }
-  clickedMarker(infoWindow:any, gm:any, index: number) {
+  clickedMarker(infoWindow: any, gm: any, index: number) {
     if (this.infoWindow) {
       this.infoWindow.close();
     }
     this.infoWindow = infoWindow;
-    this.sitosCercanos.forEach((value:any, i:any) => {
+    this.sitosCercanos.forEach((value: any, i: any) => {
       if (i == index) {
         this.sitosCercanos[i].punto.animation = 'BOUNCE'
       } else {
@@ -285,10 +344,38 @@ export class SitiosComponent implements OnInit {
           this.error = error;
         });
   }
-  borrarSitiosCercanos() {    
-    this.sitosCercanos = [];    
+  obtenerSitioCercanosRuta() {
+    let punto = {
+      coordenadas: this.coordenadasRuta,        
+      distancia: +this.distancia * 1000
+    }
+    console.log(punto);
+    this.consultarSitioCercanosRuta(punto)
   }
-  mostrarEstoyAqui(latitud:any, longitud:any) {    
+  consultarSitioCercanosRuta(punto: any) {
+    console.log("consultarSitioCercanosRuta")
+
+    this.error = "";
+    this.cargando = true;
+    this.sitiosService.consultarSitioCercanosRuta(punto)
+      .subscribe(
+        data => {
+          console.log(data)
+          let sitosCercanos = JSON.parse(JSON.stringify(data));
+          console.log(this.sitosCercanos)
+          this.mostrarSitiosCercanos(punto, sitosCercanos);
+
+          this.cargando = false;
+        },
+        error => {
+          this.cargando = false;
+          this.error = error;
+        });
+  }  
+  borrarSitiosCercanos() {
+    this.sitosCercanos = [];
+  }
+  mostrarEstoyAqui(latitud: any, longitud: any) {
     let idiomas = {
       es: {
         nombre: "Estas aquí",
@@ -333,8 +420,8 @@ export class SitiosComponent implements OnInit {
 
 
   mostrarSitiosCercanos(punto: any, sitosCercanos: any) {
-    this.sitosCercanos = [];    
-    
+    this.sitosCercanos = [];
+
     this.mostrarEstoyAqui(punto.latitud, punto.longitud);
     for (let sito of sitosCercanos) {
       this.sitosCercanos.push({
@@ -355,7 +442,7 @@ export class SitiosComponent implements OnInit {
           "draggable": true
 
         }
-      })     
+      })
     }
     console.log(this.sitosCercanos)
   }
@@ -374,5 +461,5 @@ export class SitiosComponent implements OnInit {
       console.log(e.latLng.lat(), e.latLng.lng());
     });
   }
-  
+
 }

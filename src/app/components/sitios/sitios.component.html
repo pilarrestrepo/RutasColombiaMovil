@@ -44,7 +44,8 @@
                                         <div class="sidebar-search animate fadeUp">
                                             <div class="search-area">
                                                 <i class="material-icons search-icon">search</i>
-                                                <input type="text" placeholder="" [(ngModel)]="searchTerm" name="searchTerm"  class="app-filter" id="chat_filter">
+                                                <input type="text" placeholder="" [(ngModel)]="searchTerm"
+                                                    name="searchTerm" class="app-filter" id="chat_filter">
                                             </div>
                                         </div>
                                         <!--/ Sidebar Search -->
@@ -52,7 +53,8 @@
                                         <!-- Sidebar Content List -->
                                         <div class="sidebar-content sidebar-chat">
                                             <div class="chat-list">
-                                                <ng-container *ngFor="let sitio of sitosCercanos | filtroSitios:searchTerm; let i = index">
+                                                <ng-container
+                                                    *ngFor="let sitio of sitosCercanos | filtroSitios:searchTerm; let i = index">
                                                     <div class="chat-user animate fadeUp delay-1"
                                                         *ngIf="sitio.punto.tipo ===2">
                                                         <div class="user-section">
@@ -66,9 +68,11 @@
                                                                     </div>
                                                                 </div> -->
                                                                 <div class="col s12">
-                                                                    <span class="new badge gradient-45deg-purple-deep-orange gradient-shadow"
+                                                                    <span
+                                                                        class="new badge gradient-45deg-purple-deep-orange gradient-shadow"
                                                                         data-badge-caption="">{{sitosCercanos[i].punto.distancia}}</span>
-                                                                    <p class="m-0 blue-grey-text text-darken-4 font-weight-700"> 
+                                                                    <p
+                                                                        class="m-0 blue-grey-text text-darken-4 font-weight-700">
                                                                         {{sitosCercanos[i].punto.idiomas[idioma].nombre}}
                                                                     </p>
                                                                 </div>
@@ -81,7 +85,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </ng-container>
                                             </div>
@@ -159,14 +163,16 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Lugar de llegado"
+                                <input type="text" class="form-control" placeholder="Lugar de llegada"
                                     (keydown.enter)="$event.preventDefault()" id="direccionBusquedaDestino"
                                     placeholder="{{ 'mapa.buscarSitioFin'  }}" autocorrect="off" autocapitalize="off"
                                     spellcheck="off" #busquedaDestino [(ngModel)]="direccionBusquedaDestino">
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <a href="" class="btn btn-primary full-width">Consultar Ruta</a>
+                            <button class="btn btn-primary full-width" type="button"
+                                (click)="obtenerSitioCercanosRuta()">Consultar Ruta
+                            </button>
                         </div>
                     </div>
                 </div>

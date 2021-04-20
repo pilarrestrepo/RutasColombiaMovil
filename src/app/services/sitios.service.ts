@@ -27,7 +27,22 @@ export class SitiosService {
           }),
           catchError(this.handleError)
         );
-    }    
+    }   
+    consultarSitioCercanosRuta(punto:any) {
+      var body = JSON.stringify(punto);
+      
+      return this.http.post<any>(configuracionServicio.DominioServicio + 'sitiosCercanosRuta', body, httpOptions)
+        .pipe(
+          tap((respuesta: any) => {
+            //Se valida que si existe un mensaje de error
+            if (respuesta.error) {
+              throw (respuesta.error);
+            }
+            return respuesta;
+          }),
+          catchError(this.handleError)
+        );
+    }      
     private handleError(error: HttpErrorResponse) {
       return throwError(error);
     };
