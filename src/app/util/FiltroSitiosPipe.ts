@@ -24,5 +24,28 @@ export class FiltroSitiosPipe implements PipeTransform {
         else {
             return items;
         }
-    }
+    }    
+}
+@Pipe({ name: 'SearchPipeGeneral' })
+export class SearchPipeGeneral implements PipeTransform {
+  transform(value: any, args?: any): any {
+    
+      if (!value) {
+        return null;
+      }
+
+      if (!args) {
+        return value;
+      }
+
+      args = args.toLowerCase();
+      console.log("SearchPipeGeneral", args)
+      return value.filter((item: any) => {
+          if (JSON.stringify(item).toLowerCase().includes(args)){
+            console.log("JSON.stringify(item).toLowerCase()", JSON.stringify(item).toLowerCase())
+          }
+        
+          return JSON.stringify(item).toLowerCase().includes(args);
+      });
+  }
 }

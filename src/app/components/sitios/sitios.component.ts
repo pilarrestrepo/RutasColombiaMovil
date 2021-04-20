@@ -398,21 +398,21 @@ export class SitiosComponent implements OnInit {
     }
     this.sitosCercanos.push({
       punto: {
-        "tipo": 1,
-        "latitud": +latitud,
-        "longitud": +longitud,
-        "animation": 'BOUNCE',
-        "icono": this.iconBaseLocal + this.iconEstaAqui,
-        "nombre": "Estas aquí",
-        "idiomas": idiomas,
-        "descripcion": "",
-        "categoria": idiomasCategoria,
-        "imagen": "",
-        "direccion": "",
-        "telefono": "",
-        "url": "",
-        "distiacia": "1.5",
-        "draggable": true
+        tipo: 1,
+        latitud: +latitud,
+        longitud: +longitud,
+        animation: 'BOUNCE',
+        icono: this.iconBaseLocal + this.iconEstaAqui,
+        nombre: 'Estas aquí',
+        idiomas: idiomas,
+        descripcion: '',
+        categoria: idiomasCategoria,
+        imagen: '',
+        direccion: '',
+        telefono: '',
+        url: '',
+        distancia: '1.5',
+        draggable: true
 
       }
     })
@@ -426,20 +426,20 @@ export class SitiosComponent implements OnInit {
     for (let sito of sitosCercanos) {
       this.sitosCercanos.push({
         punto: {
-          "tipo": 2,
-          "latitud": +sito.punto.coordinates[1],
-          "longitud": +sito.punto.coordinates[0],
-          "animation": 'DROP',
-          "icono": this.iconBase + sito.categoria.urlImagen,
-          "nombre": sito.nombre,
-          "idiomas": sito.idiomas,
-          "categoria": sito.categoria,
-          "imagen": this.urlImagenBase + sito.urlImagen,
-          "direccion": sito.direccion,
-          "telefono": sito.telefono,
-          "url": sito.url,
-          "distancia": "3.5",
-          "draggable": true
+          tipo: 2,
+          latitud: +sito.punto.coordinates[1],
+          longitud: +sito.punto.coordinates[0],
+          animation: 'DROP',
+          icono: this.iconBase + sito.categoria.urlImagen,
+          nombre: sito.nombre,
+          idiomas: sito.idiomas,
+          categoria: sito.categoria,
+          imagen: this.urlImagenBase + sito.urlImagen,
+          direccion: sito.direccion,
+          telefono: sito.telefono,
+          url: sito.url,
+          distancia: '3.5',
+          draggable: true
 
         }
       })

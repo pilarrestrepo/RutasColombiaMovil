@@ -54,9 +54,11 @@
                                         <div class="sidebar-content sidebar-chat">
                                             <div class="chat-list">
                                                 <ng-container
-                                                    *ngFor="let sitio of sitosCercanos | filtroSitios:searchTerm; let i = index">
+                                                    *ngFor="let sitio of sitosCercanos | SearchPipeGeneral:searchTerm; let i = index">
+
                                                     <div class="chat-user animate fadeUp delay-1"
-                                                        *ngIf="sitio.punto.tipo ===2">
+                                                        *ngIf="sitio.punto.tipo ===2">                                                        
+
                                                         <div class="user-section">
                                                             <div class="row valign-wrapper">
                                                                 <!--         <div class="col s2 media-image online pr-0">
@@ -70,17 +72,17 @@
                                                                 <div class="col s12">
                                                                     <span
                                                                         class="new badge gradient-45deg-purple-deep-orange gradient-shadow"
-                                                                        data-badge-caption="">{{sitosCercanos[i].punto.distancia}}</span>
+                                                                        data-badge-caption="">{{sitio.punto.distancia}}</span>
                                                                     <p
                                                                         class="m-0 blue-grey-text text-darken-4 font-weight-700">
-                                                                        {{sitosCercanos[i].punto.idiomas[idioma].nombre}}
+                                                                        {{sitio.punto.idiomas[idioma].nombre}}
                                                                     </p>
                                                                 </div>
                                                             </div>
                                                             <div class="row valign-wrapper">
                                                                 <div class="col s12">
                                                                     <p class="m-0 info-text">
-                                                                        {{sitosCercanos[i].punto.idiomas[idioma].descripcion}}
+                                                                        {{sitio.punto.idiomas[idioma].descripcion}}
                                                                     </p>
                                                                 </div>
                                                             </div>
