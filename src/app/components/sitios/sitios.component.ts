@@ -5,6 +5,7 @@ import { SitiosService } from '../../services/sitios.service'
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
 import { MapsAPILoader } from '@agm/core';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-sitios',
   templateUrl: './sitios.component.html',
@@ -12,6 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SitiosComponent implements OnInit {
   private geoCoder: any;
+  
 
   public lat = 0;
   public lng = 0;
@@ -58,7 +60,7 @@ export class SitiosComponent implements OnInit {
 
   @Input()
   eventoCambiarIdioma!: Observable<void>;
-  constructor(//private translateService: TranslateService,
+  constructor(private translateService: TranslateService,
     private sitiosService: SitiosService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone) {
@@ -306,10 +308,7 @@ export class SitiosComponent implements OnInit {
 
     });
   }
-  establecerIdioma() {
-    this.idioma = sessionStorage.getItem("Idioma");
-    //this.translateService.use(this.idioma);
-  }
+
   obtenerSitioCercanos() {
     navigator.geolocation.getCurrentPosition(pos => {
       console.log(pos);
@@ -461,5 +460,17 @@ export class SitiosComponent implements OnInit {
       console.log(e.latLng.lat(), e.latLng.lng());
     });
   }
+  /*****Traductor */
+  establecerIdioma() {
+    this.idioma = sessionStorage.getItem("Idioma");
+    this.translateService.use(this.idioma);
+  }
+  cambiarIdioma(idioma: string) {
+    sessionStorage.setItem("Idioma",idioma);
+    this.translateService.use(idioma);        
+    this.establecerIdioma();
+  }
 
+
+  
 }

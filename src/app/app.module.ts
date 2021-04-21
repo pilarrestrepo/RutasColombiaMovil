@@ -12,6 +12,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { GoogleMapsModule } from '@angular/google-maps'
 import { AgmDirectionModule } from 'agm-direction';
 import { FiltroSitiosPipe, SearchPipeGeneral } from './util/FiltroSitiosPipe';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,9 +31,20 @@ import { FiltroSitiosPipe, SearchPipeGeneral } from './util/FiltroSitiosPipe';
       apiKey: 'AIzaSyDBNR37FRIeI7ixrWSOFK9QF_SkM9WVTMc'
     }),
     AgmDirectionModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
