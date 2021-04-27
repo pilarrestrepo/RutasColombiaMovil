@@ -1,6 +1,6 @@
 export const environment = {
-  dominioServicio: "http://186.155.206.74:11001/",   
-  iconBase: 'http://186.155.206.74:11001/',
-  urlImagenBase: 'http://186.155.206.74:11001/',  
+  dominioServicio: "https://apps.diegopedroza.co:11005/servicios_rc/",   
+  iconBase: 'https://apps.diegopedroza.co:11005/servicios_rc/',
+  urlImagenBase: 'https://apps.diegopedroza.co:11005/servicios_rc/',  
   production: true
 };

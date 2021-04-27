@@ -12,6 +12,9 @@
           "/manifest.webmanifest",
           "/*.css",
           "/*.js"
+        ],
+        "urls": [
+          "https://maps.googleapis.com/maps/api/js/**"          
         ]
       }
     },
@@ -25,6 +28,20 @@
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
       }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "sitios-api",
+      "urls": [        
+        "https://apps.diegopedroza.co:11005/servicios_rc/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 20,
+        "maxAge": "2h",
+        "timeout": "50s",
+        "strategy": "freshness"
+      }      
     }
   ]
 }
