@@ -56,7 +56,7 @@ export class SitiosComponent implements OnInit {
   public busquedaOrigenElementRef!: ElementRef;
   @ViewChild('busquedaDestino')
   public busquedaDestinoElementRef!: ElementRef;
-
+  public apiLoaded!: Observable<boolean>;
 
   @Input()
   eventoCambiarIdioma!: Observable<void>;
@@ -70,7 +70,6 @@ export class SitiosComponent implements OnInit {
 
     //this.suscribirEventoCambiarIdioma = this.eventoCambiarIdioma.subscribe(() => this.establecerIdioma())
     //load Places Autocomplete
-
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
