@@ -18,6 +18,7 @@
     background-color: black;
     background-repeat: no-repeat;
     background-position: bottom;
+    margin-bottom: auto !important;
 }
 
 .rc-titulo1 {
@@ -46,10 +47,61 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.rc-titulo4 {
+    text-transform: uppercase;
+    color: white;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    margin-top: 0;
+}
+
 .rc-centrado-vertical {
     margin: 0;
     position: absolute;
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+}
+
+.rc-mapa {
+    width: 100% !important;
+    height: 600px !important;
+}
+
+.rc-icon {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.rc-input90 {
+    width: 80% !important;
+}
+
+.rc-titlebar {
+    background-color: #4fa1ac !important;
+    margin-right: auto !important;
+    margin-bottom: auto !important;
+    color: #ffffff !important;
+    text-transform: uppercase !important;
+}
+
+.triangled_colored_separator {
+    width: 100%;
+    display: inline-block;
+    height: 2px;
+    background: #ffb606;
+    text-align: center;
+}
+
+.rc-boton-out {
+    background-color: transparent !important;
+    border-color: #ff4081 !important;
+    color: black !important;
+    border-style: solid !important;
+    padding: 0 2rem !important;
+    border-width: thin !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%) !important;
 }

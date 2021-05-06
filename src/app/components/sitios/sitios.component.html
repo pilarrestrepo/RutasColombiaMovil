@@ -13,24 +13,167 @@
         <p class="rc-titulo2">Viajes de Aventura de Colombia</p>
     </div>
 </div>
-<div class="row">
-    <div class="offset-md-2 col-md-3">
-        <button class="btn btn-sm btn-outline-dark">Consultar sitios cercanos a mi ubicación</button>
+<div class="rc-titlebar row pt-5 pb-3">
+    <div class="col-md-12">
+        <h3 class="text-center rc-titulo4">Sitios en mi ruta</h3>
     </div>
-    <div class="offset-md-2 col-md-3">
-        <button class="btn btn-sm btn-outline-dark">Consultar sitios cercanos a una ruta</button>
+    <div class="offset-md-5 col-md-2">
+        <div class="triangled_colored_separator"></div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <h3 class="text-center rc-titulo3">Sitios en mi ruta</h3>
-        <hr/>
+<div class="row pt-3 pb-1">
+    <div class="col-md-4">
+        <label for="direccionBusquedaOrigen">Lugar de partida</label>
+        <input type="text" class="form-control" placeholder="Ingrese dirección..."
+            (keydown.enter)="$event.preventDefault()" id="direccionBusquedaOrigen"
+            placeholder="{{ 'mapa.buscarSitioInicio'  }}" autocorrect="off" autocapitalize="off" spellcheck="off"
+            #busquedaOrigen [(ngModel)]="direccionBusquedaOrigen">
     </div>
     <div class="col-md-4">
+        <label for="direccionBusquedaDestino">Lugar de llegada</label>
+        <input type="text" class="form-control" placeholder="Lugar de llegada" (keydown.enter)="$event.preventDefault()" id="direccionBusquedaDestino" autocorrect="off"
+            autocapitalize="off" spellcheck="off" #busquedaDestino [(ngModel)]="direccionBusquedaDestino">
+    </div>
+    <div class="col-md-4">
+        <label for="distancia">Distancia: {{ distancia }} km</label>
+        <input type="range" id="distancia" [(ngModel)]="distancia" min="1" max="10" step="1">
+    </div>
+</div>
+<div class="row pb-1">
+    <div class="col-md-6">
+        <a class="rc-boton-out" (click)="obtenerSitioCercanos()">Consultar sitios cercanos a mi
+            ubicación</a>
+    </div>
+    <div class="col-md-6">
+        <button class="btn btn-sm btn-block" (click)="obtenerSitioCercanosRuta()">Consultar sitios cercanos a una
+            ruta</button>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <div class="input-group">
+            <input type="text" placeholder="buscar..." aria-describedby="basic-addon1" [(ngModel)]="searchTerm"
+                name="searchTerm" class="rc-input90" id="chat_filter">
+            <div class="input-group-prepend rc-icon">
+                <span class="input-group-text rc-icon" id="basic-addon1">
+                    <i class="material-icons search-icon">search</i>
+                </span>
+            </div>
+        </div>
+        <div class="sidebar-content sidebar-chat">
+            <div class="chat-list">
+                <ng-container *ngFor="let sitio of sitosCercanos | SearchPipeGeneral:searchTerm; let i = index">
 
+                    <div class="chat-user animate fadeUp delay-1" *ngIf="sitio.punto.tipo ===2">
+
+                        <div class="user-section">
+                            <div class="row valign-wrapper">
+                                <!--         <div class="col s2 media-image online pr-0">
+                                                <div class="star-timing">
+                                                    <div class="favorite">
+                                                        <i
+                                                            class="material-icons amber-text">star</i>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                <div class="col s12">
+                                    <span class="new badge gradient-45deg-purple-deep-orange gradient-shadow"
+                                        data-badge-caption="">{{sitio.punto.distancia}}</span>
+                                    <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
+                                        {{sitio.punto.idiomas[idioma].nombre}}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row valign-wrapper">
+                                <div class="col s12">
+                                    <p class="m-0 info-text">
+                                        {{sitio.punto.idiomas[idioma].descripcion}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </ng-container>
+            </div>
+            <div class="no-data-found">
+                <h6 class="center">No Results Found</h6>
+            </div>
+        </div>
+        <!--
+      <div class="sidebar-left sidebar-fixed animate fadeUp animation-fast">
+            <div class="sidebar animate fadeUp">
+                <div class="sidebar-content">
+                    <div id="sidebar-list" class="sidebar-menu chat-sidebar list-group position-relative">
+                        <div id="chat-sidenav">
+                            < !-- Sidebar Search -- >
+                            <div class="sidebar-search animate fadeUp">
+                                <div class="search-area form-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            
+                                        </span><i class="material-icons search-icon">search</i>
+                                    </div>
+                                    
+                                    <input type="text" placeholder="" [(ngModel)]="searchTerm" name="searchTerm" class="app-filter form-control" id="chat_filter">
+                                </div>
+                            </div>
+                            < !--/ Sidebar Search -- >
+
+                            < !-- Sidebar Content List -- >
+                            <div class="sidebar-content sidebar-chat">
+                                <div class="chat-list">
+                                    <ng-container
+                                        *ngFor="let sitio of sitosCercanos | SearchPipeGeneral:searchTerm; let i = index">
+
+                                        <div class="chat-user animate fadeUp delay-1" *ngIf="sitio.punto.tipo ===2">
+
+                                            <div class="user-section">
+                                                <div class="row valign-wrapper">
+                                                    < !--         <div class="col s2 media-image online pr-0">
+                                                                    <div class="star-timing">
+                                                                        <div class="favorite">
+                                                                            <i
+                                                                                class="material-icons amber-text">star</i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -- >
+                                                    <div class="col s12">
+                                                        <span
+                                                            class="new badge gradient-45deg-purple-deep-orange gradient-shadow"
+                                                            data-badge-caption="">{{sitio.punto.distancia}}</span>
+                                                        <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
+                                                            {{sitio.punto.idiomas[idioma].nombre}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row valign-wrapper">
+                                                    <div class="col s12">
+                                                        <p class="m-0 info-text">
+                                                            {{sitio.punto.idiomas[idioma].descripcion}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="no-data-found">
+                                    <h6 class="center">No Results Found</h6>
+                                </div>
+                            </div>
+                            < !--/ Sidebar Content List -- >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    -->
     </div>
     <div class="col-md-8">
-        <agm-map width="100%" [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)"
+        <agm-map class="rc-mapa" [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)"
             (mapReady)="mapReadyHandler($event)">
             <agm-marker #gm *ngFor="let sitio of sitosCercanos; let i = index" [iconUrl]='sitosCercanos[i].punto.icono'
                 [animation]="sitosCercanos[i].punto.animation" [latitude]="sitosCercanos[i].punto.latitud"
@@ -98,90 +241,12 @@
 
     </div>
 </nav>-->
-
+<!--
 <section id="contact">
     <div class="container">
         <div class="row">
             <div class="col-md-2 mt-12">
-                <h5>Sitios en tu <b>ruta.</b></h5>
-                <div class="sidebar-left sidebar-fixed animate fadeUp animation-fast">
-                    <div class="sidebar animate fadeUp">
-                        <div class="sidebar-content">
-                            <div id="sidebar-list" class="sidebar-menu chat-sidebar list-group position-relative">
-                                <div id="chat-sidenav">
-                                    <!-- <div class="sidebar-list-padding app-sidebar sidenav" id="chat-sidenav"> -->
-                                    <!-- Sidebar Header -->
-                                    <div class="sidebar-header">
-                                        <div class="row valign-wrapper">
-                                            <div class="col s12">
-                                                <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
-                                                    {{ 'mapa.tituloListaSitios' | translate }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/ Sidebar Header -->
 
-                                    <!-- Sidebar Search -->
-                                    <div class="sidebar-search animate fadeUp">
-                                        <div class="search-area">
-                                            <i class="material-icons search-icon">search</i>
-                                            <input type="text" placeholder="" [(ngModel)]="searchTerm" name="searchTerm"
-                                                class="app-filter" id="chat_filter">
-                                        </div>
-                                    </div>
-                                    <!--/ Sidebar Search -->
-
-                                    <!-- Sidebar Content List -->
-                                    <div class="sidebar-content sidebar-chat">
-                                        <div class="chat-list">
-                                            <ng-container
-                                                *ngFor="let sitio of sitosCercanos | SearchPipeGeneral:searchTerm; let i = index">
-
-                                                <div class="chat-user animate fadeUp delay-1"
-                                                    *ngIf="sitio.punto.tipo ===2">
-
-                                                    <div class="user-section">
-                                                        <div class="row valign-wrapper">
-                                                            <!--         <div class="col s2 media-image online pr-0">
-                                                                    <div class="star-timing">
-                                                                        <div class="favorite">
-                                                                            <i
-                                                                                class="material-icons amber-text">star</i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> -->
-                                                            <div class="col s12">
-                                                                <span
-                                                                    class="new badge gradient-45deg-purple-deep-orange gradient-shadow"
-                                                                    data-badge-caption="">{{sitio.punto.distancia}}</span>
-                                                                <p
-                                                                    class="m-0 blue-grey-text text-darken-4 font-weight-700">
-                                                                    {{sitio.punto.idiomas[idioma].nombre}}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row valign-wrapper">
-                                                            <div class="col s12">
-                                                                <p class="m-0 info-text">
-                                                                    {{sitio.punto.idiomas[idioma].descripcion}}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </ng-container>
-                                        </div>
-                                        <div class="no-data-found">
-                                            <h6 class="center">No Results Found</h6>
-                                        </div>
-                                    </div>
-                                    <!--/ Sidebar Content List -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="col-md-8 mt-4">
                 <h5>Mapa</h5>
@@ -191,10 +256,10 @@
             <div class="col-md-12 mt-4">
                 <div class="row">
                     <div class="col-md-2">
-                        <div class="form-group">
+                        < !--<div class="form-group">
                             <input type="text" class="form-control" id="" placeholder="{{distancia}} km"
                                 [(ngModel)]="distancia">
-                        </div>
+                        </div>-- >
                     </div>
                     <div class="col-md-2">
                         <button class="btn btn-primary full-width" type="button" (click)="obtenerSitioCercanos()">Sitios
@@ -204,18 +269,18 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Lugar de partida"
+                            < !--<input type="text" class="form-control" placeholder="Lugar de partida"
                                 (keydown.enter)="$event.preventDefault()" id="direccionBusquedaOrigen"
                                 placeholder="{{ 'mapa.buscarSitioInicio'  }}" autocorrect="off" autocapitalize="off"
-                                spellcheck="off" #busquedaOrigen [(ngModel)]="direccionBusquedaOrigen">
+                                spellcheck="off" #busquedaOrigen [(ngModel)]="direccionBusquedaOrigen">-- >
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Lugar de llegada"
+                            < !--<input type="text" class="form-control" placeholder="Lugar de llegada"
                                 (keydown.enter)="$event.preventDefault()" id="direccionBusquedaDestino"
                                 placeholder="{{ 'mapa.buscarSitioFin'  }}" autocorrect="off" autocapitalize="off"
-                                spellcheck="off" #busquedaDestino [(ngModel)]="direccionBusquedaDestino">
+                                spellcheck="off" #busquedaDestino [(ngModel)]="direccionBusquedaDestino">-- >
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -228,3 +293,4 @@
         </div>
     </div>
 </section>
+-->
