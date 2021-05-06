@@ -115,7 +115,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="mapsAPILoader | async"  class="col-md-8 mt-4">
+                <div class="col-md-8 mt-4">
                     <h5>Mapa</h5>
                     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)"
                         (mapReady)="mapReadyHandler($event)">
