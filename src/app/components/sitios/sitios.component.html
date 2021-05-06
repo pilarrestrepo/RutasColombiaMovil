@@ -1,80 +1,148 @@
-<body>
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <img src="assets/images/LogoRutasColombia.png" class="logo-brand" alt="logo">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <img src="assets/images/menu.svg">
-            </button>
+<nav class="navbar  navbar-light rc-fondo-azul">
+    <a class="navbar-brand"><img src="assets/images/LogoRutasColombia.png" class="logo-brand" alt="logo"></a>
+    <form class="form-inline text-white">
+        <a [ngClass]="idioma === 'es' ? 'nav-link text-white rc-mano' : 'nav-link text-warning'" title="English"
+            (click)="cambiarIdioma('en')"> EN </a> |
+        <a [ngClass]="idioma === 'es' ? 'nav-link text-warning' : 'nav-link text-white rc-mano'" title="Español"
+            (click)="cambiarIdioma('es')"> ES </a>
+    </form>
+</nav>
+<div class="row rc-banner">
+    <div class="col-md-12 text-center rc-centrado-vertical">
+        <h2 class="rc-titulo1">Bienvenido a la Guía de Rutas y</h2>
+        <p class="rc-titulo2">Viajes de Aventura de Colombia</p>
+    </div>
+</div>
+<div class="row">
+    <div class="offset-md-2 col-md-3">
+        <button class="btn btn-sm btn-outline-dark">Consultar sitios cercanos a mi ubicación</button>
+    </div>
+    <div class="offset-md-2 col-md-3">
+        <button class="btn btn-sm btn-outline-dark">Consultar sitios cercanos a una ruta</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="text-center rc-titulo3">Sitios en mi ruta</h3>
+        <hr/>
+    </div>
+    <div class="col-md-4">
 
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">                    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Idioma </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">                        
-                            <li class="dropdown-item">
-                                <a class="grey-text text-darken-1" href="#!" (click)="cambiarIdioma('es')">
-                                    <i class="flag-icon flag-icon-es"></i> Español
-                                </a>
-                            </li>
-                            <li class="dropdown-item">
-                                <a class="grey-text text-darken-1" href="#!" (click)="cambiarIdioma('en')">
-                                    <i class="flag-icon flag-icon-gb"></i> English
-                                </a>
-                            </li>                      
-                        </ul>
-                    </li>
-              
-                </ul>
-            </div>
-      
+    </div>
+    <div class="col-md-8">
+        <agm-map width="100%" [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)"
+            (mapReady)="mapReadyHandler($event)">
+            <agm-marker #gm *ngFor="let sitio of sitosCercanos; let i = index" [iconUrl]='sitosCercanos[i].punto.icono'
+                [animation]="sitosCercanos[i].punto.animation" [latitude]="sitosCercanos[i].punto.latitud"
+                [longitude]="sitosCercanos[i].punto.longitud" (markerClick)="clickedMarker(infoWindow,gm, i)"
+                [markerDraggable]="sitosCercanos[i].punto.draggable" (dragEnd)="markerDragEnd($event)">
+                <agm-info-window *ngIf="sitio.punto.tipo ===2" (infoWindowClose)="cerrar()" #infoWindow>
+                    <div class="wpgmp_infowindow fc-infowindow-default">
+                        <div class="wpgmp_iw_content">
+                            <div class="fc-main">
+                                <div class="fc-item-title">{{sitosCercanos[i].punto.idiomas[idioma].nombre}}
+                                    <span
+                                        class="fc-badge info">{{sitosCercanos[i].punto.categoria.idiomas[idioma].nombre}}</span>
+                                </div>
+                                <div class="fc-item-featured_image"><img [src]="sitosCercanos[i].punto.imagen">
+                                </div>
+                                <p>{{sitosCercanos[i].punto.idiomas[idioma].descripcion}}</p>
+                                <address><b>{{ 'mapa.direccion' }} :
+                                    </b>{{sitosCercanos[i].punto.direccion}},
+                                    {{sitosCercanos[i].punto.telefono}}
+                                </address>
+                                <p><a target="_blank" class="fc-btn fc-btn-small fc-btn-red"
+                                        [href]="sitosCercanos[i].punto.url">{{ 'mapa.visitarSitio' }}</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </agm-info-window>
+            </agm-marker>
+            <agm-direction [origin]="origin" [destination]="destination" (onChange)="onChange($event)"
+                (onResponse)="onResponse($event)" (destinationDrag)="getcoords('direction',$event)"
+                (originDrag)="getcoords('direction',$event)">
+            </agm-direction>
+        </agm-map>
+    </div>
+</div>
+<!--<nav class="navbar navbar-expand-lg fixed-top rc-fondo-azul">
+    <div class="container">
+        <img src="assets/images/LogoRutasColombia.png" class="logo-brand" alt="logo">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="assets/images/menu.svg">
+        </button>
+
+        <div class="collapse navbar-collapse mr-0" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="http://example.com" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Idioma </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li class="dropdown-item">
+                            <a class="grey-text text-darken-1" href="#!" (click)="cambiarIdioma('es')">
+                                <i class="flag-icon flag-icon-es"></i> Español
+                            </a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a class="grey-text text-darken-1" href="#!" (click)="cambiarIdioma('en')">
+                                <i class="flag-icon flag-icon-gb"></i> English
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
         </div>
-    </nav>
 
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2 mt-12">
-                    <h5>Sitios en tu <b>ruta.</b></h5>
-                    <div class="sidebar-left sidebar-fixed animate fadeUp animation-fast">
-                        <div class="sidebar animate fadeUp">
-                            <div class="sidebar-content">
-                                <div id="sidebar-list" class="sidebar-menu chat-sidebar list-group position-relative">
-                                    <div id="chat-sidenav">
-                                        <!-- <div class="sidebar-list-padding app-sidebar sidenav" id="chat-sidenav"> -->
-                                        <!-- Sidebar Header -->
-                                        <div class="sidebar-header">
-                                            <div class="row valign-wrapper">
-                                                <div class="col s12">
-                                                    <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
-                                                        {{ 'mapa.tituloListaSitios' | translate }}</p>
-                                                </div>
+    </div>
+</nav>-->
+
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 mt-12">
+                <h5>Sitios en tu <b>ruta.</b></h5>
+                <div class="sidebar-left sidebar-fixed animate fadeUp animation-fast">
+                    <div class="sidebar animate fadeUp">
+                        <div class="sidebar-content">
+                            <div id="sidebar-list" class="sidebar-menu chat-sidebar list-group position-relative">
+                                <div id="chat-sidenav">
+                                    <!-- <div class="sidebar-list-padding app-sidebar sidenav" id="chat-sidenav"> -->
+                                    <!-- Sidebar Header -->
+                                    <div class="sidebar-header">
+                                        <div class="row valign-wrapper">
+                                            <div class="col s12">
+                                                <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
+                                                    {{ 'mapa.tituloListaSitios' | translate }}</p>
                                             </div>
                                         </div>
-                                        <!--/ Sidebar Header -->
+                                    </div>
+                                    <!--/ Sidebar Header -->
 
-                                        <!-- Sidebar Search -->
-                                        <div class="sidebar-search animate fadeUp">
-                                            <div class="search-area">
-                                                <i class="material-icons search-icon">search</i>
-                                                <input type="text" placeholder="" [(ngModel)]="searchTerm"
-                                                    name="searchTerm" class="app-filter" id="chat_filter">
-                                            </div>
+                                    <!-- Sidebar Search -->
+                                    <div class="sidebar-search animate fadeUp">
+                                        <div class="search-area">
+                                            <i class="material-icons search-icon">search</i>
+                                            <input type="text" placeholder="" [(ngModel)]="searchTerm" name="searchTerm"
+                                                class="app-filter" id="chat_filter">
                                         </div>
-                                        <!--/ Sidebar Search -->
+                                    </div>
+                                    <!--/ Sidebar Search -->
 
-                                        <!-- Sidebar Content List -->
-                                        <div class="sidebar-content sidebar-chat">
-                                            <div class="chat-list">
-                                                <ng-container
-                                                    *ngFor="let sitio of sitosCercanos | SearchPipeGeneral:searchTerm; let i = index">
+                                    <!-- Sidebar Content List -->
+                                    <div class="sidebar-content sidebar-chat">
+                                        <div class="chat-list">
+                                            <ng-container
+                                                *ngFor="let sitio of sitosCercanos | SearchPipeGeneral:searchTerm; let i = index">
 
-                                                    <div class="chat-user animate fadeUp delay-1"
-                                                        *ngIf="sitio.punto.tipo ===2">
+                                                <div class="chat-user animate fadeUp delay-1"
+                                                    *ngIf="sitio.punto.tipo ===2">
 
-                                                        <div class="user-section">
-                                                            <div class="row valign-wrapper">
-                                                                <!--         <div class="col s2 media-image online pr-0">
+                                                    <div class="user-section">
+                                                        <div class="row valign-wrapper">
+                                                            <!--         <div class="col s2 media-image online pr-0">
                                                                     <div class="star-timing">
                                                                         <div class="favorite">
                                                                             <i
@@ -82,129 +150,81 @@
                                                                         </div>
                                                                     </div>
                                                                 </div> -->
-                                                                <div class="col s12">
-                                                                    <span
-                                                                        class="new badge gradient-45deg-purple-deep-orange gradient-shadow"
-                                                                        data-badge-caption="">{{sitio.punto.distancia}}</span>
-                                                                    <p
-                                                                        class="m-0 blue-grey-text text-darken-4 font-weight-700">
-                                                                        {{sitio.punto.idiomas[idioma].nombre}}
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row valign-wrapper">
-                                                                <div class="col s12">
-                                                                    <p class="m-0 info-text">
-                                                                        {{sitio.punto.idiomas[idioma].descripcion}}
-                                                                    </p>
-                                                                </div>
+                                                            <div class="col s12">
+                                                                <span
+                                                                    class="new badge gradient-45deg-purple-deep-orange gradient-shadow"
+                                                                    data-badge-caption="">{{sitio.punto.distancia}}</span>
+                                                                <p
+                                                                    class="m-0 blue-grey-text text-darken-4 font-weight-700">
+                                                                    {{sitio.punto.idiomas[idioma].nombre}}
+                                                                </p>
                                                             </div>
                                                         </div>
-
+                                                        <div class="row valign-wrapper">
+                                                            <div class="col s12">
+                                                                <p class="m-0 info-text">
+                                                                    {{sitio.punto.idiomas[idioma].descripcion}}
+                                                                </p>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </ng-container>
-                                            </div>
-                                            <div class="no-data-found">
-                                                <h6 class="center">No Results Found</h6>
-                                            </div>
-                                        </div>
-                                        <!--/ Sidebar Content List -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8 mt-4">
-                    <h5>Mapa</h5>
-                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="mapClicked($event)"
-                        (mapReady)="mapReadyHandler($event)">
-                        <agm-marker #gm *ngFor="let sitio of sitosCercanos; let i = index"
-                            [iconUrl]='sitosCercanos[i].punto.icono' [animation]="sitosCercanos[i].punto.animation"
-                            [latitude]="sitosCercanos[i].punto.latitud" [longitude]="sitosCercanos[i].punto.longitud"
-                            (markerClick)="clickedMarker(infoWindow,gm, i)"
-                            [markerDraggable]="sitosCercanos[i].punto.draggable" (dragEnd)="markerDragEnd($event)">
-                            <agm-info-window *ngIf="sitio.punto.tipo ===2" (infoWindowClose)="cerrar()" #infoWindow>
-                                <div class="wpgmp_infowindow fc-infowindow-default">
-                                    <div class="wpgmp_iw_content">
-                                        <div class="fc-main">
-                                            <div class="fc-item-title">{{sitosCercanos[i].punto.idiomas[idioma].nombre}}
-                                                <span
-                                                    class="fc-badge info">{{sitosCercanos[i].punto.categoria.idiomas[idioma].nombre}}</span>
-                                            </div>
-                                            <div class="fc-item-featured_image"><img
-                                                    [src]="sitosCercanos[i].punto.imagen"> </div>
-                                            <p>{{sitosCercanos[i].punto.idiomas[idioma].descripcion}}</p>
-                                            <address><b>{{ 'mapa.direccion' }} :
-                                                </b>{{sitosCercanos[i].punto.direccion}},
-                                                {{sitosCercanos[i].punto.telefono}}
-                                            </address>
-                                            <p><a target="_blank" class="fc-btn fc-btn-small fc-btn-red"
-                                                    [href]="sitosCercanos[i].punto.url">{{ 'mapa.visitarSitio' }}</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </agm-info-window>
-                        </agm-marker>
-                        <agm-direction [origin]="origin" [destination]="destination" (onChange)="onChange($event)"
-                            (onResponse)="onResponse($event)" (destinationDrag)="getcoords('direction',$event)"
-                            (originDrag)="getcoords('direction',$event)">
-                        </agm-direction>
-                    </agm-map>
-                    <p></p>
-                </div>
-                <div class="col-md-12 mt-4">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="" placeholder="{{distancia}} km"
-                                    [(ngModel)]="distancia">
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-primary full-width" type="button"
-                                (click)="obtenerSitioCercanos()">Sitios Cercanos
-                            </button>
 
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Lugar de partida"
-                                    (keydown.enter)="$event.preventDefault()" id="direccionBusquedaOrigen"
-                                    placeholder="{{ 'mapa.buscarSitioInicio'  }}" autocorrect="off" autocapitalize="off"
-                                    spellcheck="off" #busquedaOrigen [(ngModel)]="direccionBusquedaOrigen">
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                        <div class="no-data-found">
+                                            <h6 class="center">No Results Found</h6>
+                                        </div>
+                                    </div>
+                                    <!--/ Sidebar Content List -->
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Lugar de llegada"
-                                    (keydown.enter)="$event.preventDefault()" id="direccionBusquedaDestino"
-                                    placeholder="{{ 'mapa.buscarSitioFin'  }}" autocorrect="off" autocapitalize="off"
-                                    spellcheck="off" #busquedaDestino [(ngModel)]="direccionBusquedaDestino">
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-primary full-width" type="button"
-                                (click)="obtenerSitioCercanosRuta()">Consultar Ruta
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <footer class="bgDark">
-        <div class="container">
+            <div class="col-md-8 mt-4">
+                <h5>Mapa</h5>
 
-            <small>©2020 All Rights Reserved. Created by <a href="https://themesbootstrap.com.mx/"
-                    class="font-weight-bold" target="_blank" rel="noopener">Themes Bootstrap</a></small>
-        </div>
-    </footer>
+                <p></p>
+            </div>
+            <div class="col-md-12 mt-4">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="" placeholder="{{distancia}} km"
+                                [(ngModel)]="distancia">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary full-width" type="button" (click)="obtenerSitioCercanos()">Sitios
+                            Cercanos
+                        </button>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-</body>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Lugar de partida"
+                                (keydown.enter)="$event.preventDefault()" id="direccionBusquedaOrigen"
+                                placeholder="{{ 'mapa.buscarSitioInicio'  }}" autocorrect="off" autocapitalize="off"
+                                spellcheck="off" #busquedaOrigen [(ngModel)]="direccionBusquedaOrigen">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Lugar de llegada"
+                                (keydown.enter)="$event.preventDefault()" id="direccionBusquedaDestino"
+                                placeholder="{{ 'mapa.buscarSitioFin'  }}" autocorrect="off" autocapitalize="off"
+                                spellcheck="off" #busquedaDestino [(ngModel)]="direccionBusquedaDestino">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary full-width" type="button"
+                            (click)="obtenerSitioCercanosRuta()">Consultar Ruta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

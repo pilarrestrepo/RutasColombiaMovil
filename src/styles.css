@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+.franja {
+    height: 15px;
+    background-image: url(https://www.rutascolombia.com/wp-content/uploads/2019/05/aventura-aire-globo.jpg);
+    background-repeat: repeat-x;
+}
+
+.rc-fondo-azul {
+    background-color: #1E3B5B !important;
+}
+
+.rc-mano {
+    cursor: pointer !important;
+}
+
+.rc-banner{
+    background-image: url(https://www.rutascolombia.com/wp-content/uploads/2019/09/banner1.jpg);
+    height: 500px;
+    background-color: black;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.rc-titulo1 {
+    text-transform: uppercase;
+    color: white;
+    font-size: 45px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    margin-top: 0;
+    text-shadow: 1px 1px 1px black;
+}
+
+.rc-titulo2 {
+    font-size: 30px;
+    color: white;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    text-shadow: 1px 1px 1px black;
+}
+
+.rc-titulo3 {
+    font-size: 30px;
+    color: #ff4081;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.rc-centrado-vertical {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
