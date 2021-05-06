@@ -72,7 +72,7 @@ export class SitiosComponent implements OnInit {
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
+      
 
       let autocompleteOrigen = new google.maps.places.Autocomplete(this.busquedaOrigenElementRef.nativeElement);
       let autocompleteDestino = new google.maps.places.Autocomplete(this.busquedaDestinoElementRef.nativeElement);
@@ -119,6 +119,7 @@ export class SitiosComponent implements OnInit {
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
+        this.geoCoder = new google.maps.Geocoder;
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
         this.zoom = 8;
@@ -127,6 +128,7 @@ export class SitiosComponent implements OnInit {
         this.sitosCercanos = [];
         this.mostrarEstoyAqui(position.coords.latitude, position.coords.longitude);
         this.getAddress(this.lat, this.lng);
+        
       });
     }
   }
