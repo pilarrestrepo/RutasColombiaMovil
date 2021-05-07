@@ -1,0 +1,24 @@
+{
+    "index": {
+        "titulo": "Tu compañero de ruta",
+        "buscarEnRutasColombia":"Explora Rutas por Colombia",
+        "menuInicio":"Inicio",        
+        "menuRuta":"Ruta de Viaje",
+        "registro":"Registro"
+    },
+    "mapa": {
+        "titulo": "Mapa",
+        "estoyAqui": "Estoy aquí",
+        "direccion":"Dirección",
+        "visitarSitio":"Visitar sitio",
+        "botonConsultarSitios":"Sitios cercanos",
+        "tituloListaSitios":"Tus sitios",        
+        "tituloMapa":"Te mostramos sitios interesantes para visitar muy cerca a ti",
+        "buscar":"Buscar",
+        "ingresarDestino":"Ingresa una ubicación",
+        "buscarSitioInicio":"Buscar un destino de viaje",
+        "buscarSitioFin":"Buscar un destino de viaje",
+        "distancia":"Sitios cercanos a una distancia en Km de"
+
+    }  
+}
