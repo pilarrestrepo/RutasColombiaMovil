@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1620270884315,
+  "timestamp": 1620395861192,
   "index": "/RutasColombiaMovil/index.html",
   "assetGroups": [
     {
@@ -13,11 +13,11 @@
       "urls": [
         "/RutasColombiaMovil/favicon.ico",
         "/RutasColombiaMovil/index.html",
-        "/RutasColombiaMovil/main.3be82f766d99cbbe94c7.js",
+        "/RutasColombiaMovil/main.7bdc7cf6c980a132a832.js",
         "/RutasColombiaMovil/manifest.webmanifest",
         "/RutasColombiaMovil/polyfills.94daefd414b8355106ab.js",
         "/RutasColombiaMovil/runtime.7b63b9fd40098a2e8207.js",
-        "/RutasColombiaMovil/styles.3ff695c00d717f2d2a11.css"
+        "/RutasColombiaMovil/styles.269ae8b6b870f942c687.css"
       ],
       "patterns": [
         "https:\\/\\/maps\\.googleapis\\.com\\/maps\\/api\\/js\\/.*",
@@ -147,12 +147,12 @@
     "/RutasColombiaMovil/assets/js/jquery.js": "2115753ca5fb7032aec498db7bb5dca624dbe6be",
     "/RutasColombiaMovil/assets/js/popper.min.js": "42e3ca1212d825150c0f57f97dea8d9c0b0ce2a1",
     "/RutasColombiaMovil/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/RutasColombiaMovil/index.html": "f7a6a8ed0244fc0bc7900aa0d163454a6c1c2dcc",
-    "/RutasColombiaMovil/main.3be82f766d99cbbe94c7.js": "eb272c8122f36ff44c10ae4c5ba0d44aa3d796d1",
+    "/RutasColombiaMovil/index.html": "cf47a82f624a56cbcb1848b00224456bf5497d3c",
+    "/RutasColombiaMovil/main.7bdc7cf6c980a132a832.js": "7e6957f3e7c851a9246e4594488f05c89dab3d56",
     "/RutasColombiaMovil/manifest.webmanifest": "fe2fb0f407938a73883cd8f22de9ec4497735b7b",
     "/RutasColombiaMovil/polyfills.94daefd414b8355106ab.js": "cfe7b0b53e96bff9ba384b4d497c08475a617d62",
     "/RutasColombiaMovil/runtime.7b63b9fd40098a2e8207.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
-    "/RutasColombiaMovil/styles.3ff695c00d717f2d2a11.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+    "/RutasColombiaMovil/styles.269ae8b6b870f942c687.css": "7ae240912b313472218fe934689893fe22a3d16d"
   },
   "navigationUrls": [
     {
