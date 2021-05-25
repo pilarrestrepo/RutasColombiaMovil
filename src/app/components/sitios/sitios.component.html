@@ -159,12 +159,12 @@
                                     <img [src]="sitosCercanos[i].punto.imagen">
                                 </div>
                                 <p>{{sitosCercanos[i].punto.idiomas[idioma].descripcion}}</p>
-                                <address><b>{{ 'mapa.direccion' }} :
+                                <address><b>{{ 'mapa.direccion' | translate }} :
                                     </b>{{sitosCercanos[i].punto.direccion}},
                                     {{sitosCercanos[i].punto.telefono}}
                                 </address>
-                                <p><a target="_blank" class="fc-btn fc-btn-small fc-btn-red"
-                                        [href]="sitosCercanos[i].punto.url">{{ 'mapa.visitarSitio' }}</a>
+                                <p><a target="_blank" class="fc-btn fc-btn-small fc-btn-red" (click)="registrarVisitaSitio(sitosCercanos[i].punto.id,sitosCercanos[i].punto.URLWeb,'visitaSitio')"
+                                        [href]="sitosCercanos[i].punto.URLWeb">{{ 'mapa.visitarSitio' | translate }}</a>
                                 </p>
                             </div>
                         </div>

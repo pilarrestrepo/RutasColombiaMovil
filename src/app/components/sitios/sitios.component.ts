@@ -426,14 +426,14 @@ export class SitiosComponent implements OnInit {
   }
  
   registrarVisitaSitio(id:string, url: string, tipo:string) {
-    console.log("registrarVisitaSitio")
     let visitasSitio = {
       sitio: id,
       tipoVisita: tipo,
       urlVisita: url,
       fecha: new Date() 
     }
-
+    
+    console.log("registrarVisitaSitio", visitasSitio)
 
     this.error = "";
     this.cargando = true;
