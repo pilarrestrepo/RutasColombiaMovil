@@ -6,6 +6,7 @@ import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
 import { MapsAPILoader } from '@agm/core';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
+import { VisitasSitioService } from 'src/app/services/visitas-sitio.service';
 @Component({
   selector: 'app-sitios',
   templateUrl: './sitios.component.html',
@@ -13,8 +14,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SitiosComponent implements OnInit {
   private geoCoder: any;
-  
 
+  public resultados = false;
   public lat = 0;
   public lng = 0;
   public error = "";
@@ -45,7 +46,7 @@ export class SitiosComponent implements OnInit {
   private zone: any;
   public filterargs = { nombre: '' };
   public searchTerm: string = "";
-  
+
   private coordenadasRuta!: any[];
 
   @ViewChild(GoogleMap, { static: false })
@@ -62,12 +63,13 @@ export class SitiosComponent implements OnInit {
   eventoCambiarIdioma!: Observable<void>;
   constructor(private translateService: TranslateService,
     private sitiosService: SitiosService,
+    private visitasSitioService: VisitasSitioService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone) {
   }
 
   ngOnInit(): void {
-
+    this.cambiarIdioma('es');
     //this.suscribirEventoCambiarIdioma = this.eventoCambiarIdioma.subscribe(() => this.establecerIdioma())
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
@@ -128,7 +130,7 @@ export class SitiosComponent implements OnInit {
         this.sitosCercanos = [];
         this.mostrarEstoyAqui(position.coords.latitude, position.coords.longitude);
         this.getAddress(this.lat, this.lng);
-        
+
       });
     }
   }
@@ -232,17 +234,17 @@ export class SitiosComponent implements OnInit {
     };
 
     var directionsData = event.routes[0].legs[0];
-    
-    this.coordenadasRuta = [];    
-    console.log("directionsData.steps") 
+
+    this.coordenadasRuta = [];
+    console.log("directionsData.steps")
     for (var i = 0; i < directionsData.steps.length; i++) {
       this.coordenadasRuta.push({
-        "latitud":directionsData.steps[i].start_point.lat(),
-        "longitud":directionsData.steps[i].start_point.lng()
+        "latitud": directionsData.steps[i].start_point.lat(),
+        "longitud": directionsData.steps[i].start_point.lng()
       })
     }
-    console.log("coordenadas",this.coordenadasRuta) 
-    
+    console.log("coordenadas", this.coordenadasRuta)
+
 
     /*
         var points = new Array();
@@ -346,7 +348,7 @@ export class SitiosComponent implements OnInit {
   }
   obtenerSitioCercanosRuta() {
     let punto = {
-      coordenadas: this.coordenadasRuta,        
+      coordenadas: this.coordenadasRuta,
       distancia: +this.distancia * 1000
     }
     console.log(punto);
@@ -371,7 +373,7 @@ export class SitiosComponent implements OnInit {
           this.cargando = false;
           this.error = error;
         });
-  }  
+  }
   borrarSitiosCercanos() {
     this.sitosCercanos = [];
   }
@@ -398,6 +400,7 @@ export class SitiosComponent implements OnInit {
     }
     this.sitosCercanos.push({
       punto: {
+        id:null,
         tipo: 1,
         latitud: +latitud,
         longitud: +longitud,
@@ -410,6 +413,10 @@ export class SitiosComponent implements OnInit {
         imagen: '',
         direccion: '',
         telefono: '',
+        URLWeb: '',
+        URLContacto: '',
+        URLRelacionada: '',
+        URLCalificacion: '',
         url: '',
         distancia: '1.5',
         draggable: true
@@ -417,15 +424,43 @@ export class SitiosComponent implements OnInit {
       }
     })
   }
+ 
+  registrarVisitaSitio(id:string, url: string, tipo:string) {
+    console.log("registrarVisitaSitio")
+    let visitasSitio = {
+      sitio: id,
+      tipoVisita: tipo,
+      urlVisita: url,
+      fecha: new Date() 
+    }
 
+
+    this.error = "";
+    this.cargando = true;
+    this.visitasSitioService.crearVisitaSitio(visitasSitio)
+      .subscribe(
+        data => {
+          this.cargando = false;
+        },
+        error => {
+          this.cargando = false;
+          this.error = error;
+        });
+  }
 
   mostrarSitiosCercanos(punto: any, sitosCercanos: any) {
     this.sitosCercanos = [];
 
     this.mostrarEstoyAqui(punto.latitud, punto.longitud);
     for (let sito of sitosCercanos) {
+      let imagen = null
+      if (sito.urlImagen){
+         imagen = this.urlImagenBase + sito.urlImagen
+      }
+      
       this.sitosCercanos.push({
         punto: {
+          id:sito.id,
           tipo: 2,
           latitud: +sito.punto.coordinates[1],
           longitud: +sito.punto.coordinates[0],
@@ -434,10 +469,14 @@ export class SitiosComponent implements OnInit {
           nombre: sito.nombre,
           idiomas: sito.idiomas,
           categoria: sito.categoria,
-          imagen: this.urlImagenBase + sito.urlImagen,
+          imagen: imagen,
           direccion: sito.direccion,
           telefono: sito.telefono,
           url: sito.url,
+          URLWeb: sito.URLWeb,
+          URLContacto: sito.URLContacto,
+          URLRelacionada: sito.URLRelacionada,
+          URLCalificacion: sito.URLCalificacion,         
           distancia: '3.5',
           draggable: true
 
@@ -467,11 +506,11 @@ export class SitiosComponent implements OnInit {
     this.translateService.use(this.idioma);
   }
   cambiarIdioma(idioma: string) {
-    sessionStorage.setItem("Idioma",idioma);
-    this.translateService.use(idioma);        
+    sessionStorage.setItem("Idioma", idioma);
+    this.translateService.use(idioma);
     this.establecerIdioma();
   }
 
 
-  
+
 }
