@@ -18,7 +18,9 @@
         "ingresarDestino":"Ingresa una ubicación",
         "buscarSitioInicio":"Buscar un destino de viaje",
         "buscarSitioFin":"Buscar un destino de viaje",
-        "distancia":"Sitios cercanos a una distancia en Km de"
-
+        "distancia":"Sitios cercanos a una distancia en Km de",
+        "tituloPrincipal": "Bienvenido a la Guía de Rutas y",
+        "subtitulo": "Viajes de Aventura de Colombia"
+        
     }  
 }

@@ -105,3 +105,15 @@
     cursor: pointer !important;
     box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%) !important;
 }
+
+.rc-boton-rosa {
+    cursor: pointer !important;
+    transition: background-color .2s ease-out !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    letter-spacing: .5px !important;
+    color: #fff !important;
+    background-color: #ff4081 !important;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    border-radius: 5px !important;
+}

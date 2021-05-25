@@ -18,6 +18,8 @@
         "ingresarDestino":"Find a travel distination...",
         "buscarSitioInicio":"Enter start location",
         "buscarSitioFin":"Enter end location",
-        "distancia":"Places around me at a distance (Km) of"        
+        "distancia":"Places around me at a distance (Km) of",
+        "tituloPrincipal": "Welcome to Routes and Travel's",
+        "subtitulo": "Guide about adventure of Colombia"
     }    
 }
