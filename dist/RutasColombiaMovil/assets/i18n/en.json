@@ -7,10 +7,12 @@
         "registro":"Register"
     },
     "mapa": {
-        "titulo": "Map",
+        "titulo": "Places on my way",
         "estoyAqui": "I'm here",
         "direccion":"Address",
         "visitarSitio":"Visit website",
+        "contacto": "Contact",
+        "masInformacion": "More info...",
         "botonConsultarSitios":"Places around me",
         "tituloListaSitios":"your sites",        
         "tituloMapa":"We show you interesting places to visit very close to you",
@@ -18,6 +20,8 @@
         "ingresarDestino":"Find a travel distination...",
         "buscarSitioInicio":"Enter start location",
         "buscarSitioFin":"Enter end location",
-        "distancia":"Places around me at a distance (Km) of"        
+        "distancia":"Places around me at a distance (Km) of",
+        "tituloPrincipal": "Welcome to Routes and Travel's",
+        "subtitulo": "Guide about adventure of Colombia"
     }    
 }

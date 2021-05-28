@@ -7,10 +7,12 @@
         "registro":"Register"
     },
     "mapa": {
-        "titulo": "Map",
+        "titulo": "Places on my way",
         "estoyAqui": "I'm here",
         "direccion":"Address",
         "visitarSitio":"Visit website",
+        "contacto": "Contact",
+        "masInformacion": "More info...",
         "botonConsultarSitios":"Places around me",
         "tituloListaSitios":"your sites",        
         "tituloMapa":"We show you interesting places to visit very close to you",

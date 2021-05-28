@@ -7,10 +7,12 @@
         "registro":"Registro"
     },
     "mapa": {
-        "titulo": "Mapa",
+        "titulo": "Sitios en mi ruta",
         "estoyAqui": "Estoy aquí",
         "direccion":"Dirección",
         "visitarSitio":"Visitar sitio",
+        "contacto": "Contactar",
+        "masInformacion": "Más información...",
         "botonConsultarSitios":"Sitios cercanos",
         "tituloListaSitios":"Tus sitios",        
         "tituloMapa":"Te mostramos sitios interesantes para visitar muy cerca a ti",
@@ -18,7 +20,9 @@
         "ingresarDestino":"Ingresa una ubicación",
         "buscarSitioInicio":"Buscar un destino de viaje",
         "buscarSitioFin":"Buscar un destino de viaje",
-        "distancia":"Sitios cercanos a una distancia en Km de"
-
+        "distancia":"Sitios cercanos a una distancia en Km de",
+        "tituloPrincipal": "Bienvenido a la Guía de Rutas y",
+        "subtitulo": "Viajes de Aventura de Colombia"
+        
     }  
 }

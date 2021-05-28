@@ -7,15 +7,15 @@
             (click)="cambiarIdioma('es')"> ES </a>
     </form>
 </nav>
-<div class="row rc-banner">
+<!--<div class="row rc-banner">
     <div class="col-md-12 text-center rc-centrado-vertical">
         <h2 class="rc-titulo1">{{ 'mapa.tituloPrincipal' | translate }}</h2>
         <p class="rc-titulo2">{{ 'mapa.subtitulo' | translate }}</p>
     </div>
-</div>
+</div>-->
 <div class="rc-titlebar row pt-5 pb-3">
     <div class="col-md-12">
-        <h3 class="text-center rc-titulo4">Sitios en mi ruta</h3>
+        <h3 class="text-center rc-titulo4">{{ 'mapa.titulo' | translate }}</h3>
     </div>
     <div class="offset-md-5 col-md-2">
         <div class="triangled_colored_separator"></div>
@@ -59,17 +59,19 @@
                     ubicación</a>
             </div>
         </div>-->
-        <div class="row" [style.visibility]="!resultados ? 'visible' : 'collapse' " [style.height]="!resultados ? '100%' : '0'">
+        <div class="row" [style.visibility]="!resultados ? 'visible' : 'collapse' "
+            [style.height]="!resultados ? '100%' : '0'">
             <div class="col-md-12">
                 <label for="direccionBusquedaOrigen">Lugar de partida</label>
                 <input type="text" class="form-control" placeholder="Ingrese dirección..."
                     (keydown.enter)="$event.preventDefault()" id="direccionBusquedaOrigen"
-                    placeholder="{{ 'mapa.buscarSitioInicio'  }}" autocorrect="off" autocapitalize="off" spellcheck="off"
-                    #busquedaOrigen [(ngModel)]="direccionBusquedaOrigen">
+                    placeholder="{{ 'mapa.buscarSitioInicio'  }}" autocorrect="off" autocapitalize="off"
+                    spellcheck="off" #busquedaOrigen [(ngModel)]="direccionBusquedaOrigen">
             </div>
             <div class="col-md-12">
                 <label for="direccionBusquedaDestino">Lugar de llegada</label>
-                <input type="text" class="form-control" placeholder="Lugar de llegada" (keydown.enter)="$event.preventDefault()" id="direccionBusquedaDestino" autocorrect="off"
+                <input type="text" class="form-control" placeholder="Lugar de llegada"
+                    (keydown.enter)="$event.preventDefault()" id="direccionBusquedaDestino" autocorrect="off"
                     autocapitalize="off" spellcheck="off" #busquedaDestino [(ngModel)]="direccionBusquedaDestino">
             </div>
             <div class="col-md-12">
@@ -77,9 +79,10 @@
                 <input type="range" id="distancia" [(ngModel)]="distancia" min="1" max="10" step="1">
             </div>
             <div class="col-md-12">
-                <label >Consultar sitios cercanos a:</label>
-                <br/>
-                <button class="btn btn-sm" (click)="obtenerSitioCercanos(); resultados = true;">Mi ubicación</button>&nbsp;
+                <label>Consultar sitios cercanos a:</label>
+                <br />
+                <button class="btn btn-sm" (click)="obtenerSitioCercanos(); resultados = true;">Mi
+                    ubicación</button>&nbsp;
                 <button class="btn btn-sm" (click)="obtenerSitioCercanosRuta(); resultados = true;">Ruta</button>
             </div>
             <!--<div class="offset-md-1 col-md-4 rc-boton-rosa pt-1 pb-1">
@@ -105,7 +108,26 @@
                         </span>
                     </div>
                 </div>
-                <div class="sidebar-content sidebar-chat">
+            </div>
+            <div class="col-md-12 chat-list">
+                <ng-container *ngFor="let sitio of sitosCercanos | SearchPipeGeneral:searchTerm; let i = index">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
+                                {{sitio.punto.idiomas[idioma].nombre}}
+                            </p>
+
+                        </div>
+                        <div class="col-md-2">
+                            <a class="new badge gradient-45deg-purple-deep-orange gradient-shadow" target="_blank" 
+                            (click)="registrarVisitaSitio(sitosCercanos[i].punto.id,sitosCercanos[i].punto.URLCalificacion,'visitaCalificacion')"
+                            [href]="sitosCercanos[i].punto.URLCalificacion"
+                                data-badge-caption=""><i class="material-icons amber-text">star</i></a>
+
+                        </div>
+                    </div>
+                </ng-container>
+                <!--<div class="sidebar-content sidebar-chat">
                     <div class="chat-list">
                         <ng-container *ngFor="let sitio of sitosCercanos | SearchPipeGeneral:searchTerm; let i = index">
         
@@ -132,11 +154,11 @@
         
                             </div>
                         </ng-container>
-                    </div>
-                    <div class="no-data-found">
-                        <h6 class="center">No Results Found</h6>
-                    </div>
+                    </div>-->
+                <div class="no-data-found" *ngIf="sitosCercanos.length === 0 ">
+                    <h6 class="center">No Results Found</h6>
                 </div>
+                <!--</div>-->
             </div>
         </div>
     </div>
@@ -155,7 +177,8 @@
                                     <span
                                         class="fc-badge info">{{sitosCercanos[i].punto.categoria.idiomas[idioma].nombre}}</span>
                                 </div>
-                                <div class="fc-item-featured_image" *ngIf="sitosCercanos[i].punto.imagen !== null && sitosCercanos[i].punto.imagen !== undefined">
+                                <div class="fc-item-featured_image"
+                                    *ngIf="sitosCercanos[i].punto.imagen !== null && sitosCercanos[i].punto.imagen !== undefined">
                                     <img [src]="sitosCercanos[i].punto.imagen">
                                 </div>
                                 <p>{{sitosCercanos[i].punto.idiomas[idioma].descripcion}}</p>
@@ -163,8 +186,22 @@
                                     </b>{{sitosCercanos[i].punto.direccion}},
                                     {{sitosCercanos[i].punto.telefono}}
                                 </address>
-                                <p><a target="_blank" class="fc-btn fc-btn-small fc-btn-red" (click)="registrarVisitaSitio(sitosCercanos[i].punto.id,sitosCercanos[i].punto.URLWeb,'visitaSitio')"
-                                        [href]="sitosCercanos[i].punto.URLWeb">{{ 'mapa.visitarSitio' | translate }}</a>
+                                <p>
+                                    <a *ngIf="sitosCercanos[i].punto.URLWeb" target="_blank"
+                                        class="fc-btn fc-btn-small fc-btn-red"
+                                        (click)="registrarVisitaSitio(sitosCercanos[i].punto.id,sitosCercanos[i].punto.URLWeb,'visitaSitio')"
+                                        [href]="sitosCercanos[i].punto.URLWeb">{{ 'mapa.visitarSitio' | translate
+                                        }}</a>&nbsp;&nbsp;
+                                    <a *ngIf="sitosCercanos[i].punto.URLContacto" target="_blank"
+                                        class="fc-btn fc-btn-small fc-btn-red"
+                                        (click)="registrarVisitaSitio(sitosCercanos[i].punto.id,sitosCercanos[i].punto.URLContacto,'visitaContacto')"
+                                        [href]="sitosCercanos[i].punto.URLContacto">{{ 'mapa.contacto' | translate
+                                        }}</a>&nbsp;&nbsp;
+                                    <a *ngIf="sitosCercanos[i].punto.URLRelacionada" target="_blank"
+                                        class="fc-btn fc-btn-small fc-btn-red"
+                                        (click)="registrarVisitaSitio(sitosCercanos[i].punto.id,sitosCercanos[i].punto.URLRelacionada,'visitaRelacionada')"
+                                        [href]="sitosCercanos[i].punto.URLRelacionada">{{ 'mapa.masInformacion' |
+                                        translate }}</a>
                                 </p>
                             </div>
                         </div>
