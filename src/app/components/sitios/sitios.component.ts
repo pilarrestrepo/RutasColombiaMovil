@@ -36,7 +36,7 @@ export class SitiosComponent implements OnInit {
   private iconBaseLocal = '../../../assets/icons/mapa/'
   private iconBase = environment.iconBase
   private urlImagenBase = environment.urlImagenBase
-  private iconEstaAqui = 'you-are-here-2.png'
+  private iconEstaAqui = '/assets/imagenesSitioCategorias/you-are-here-2.png'
   public origin: any;
   public destination: any;
 
@@ -405,7 +405,7 @@ export class SitiosComponent implements OnInit {
         latitud: +latitud,
         longitud: +longitud,
         animation: 'BOUNCE',
-        icono: this.iconBaseLocal + this.iconEstaAqui,
+        icono: this.iconBase + this.iconEstaAqui,        
         nombre: 'Estas aquí',
         idiomas: idiomas,
         descripcion: '',
