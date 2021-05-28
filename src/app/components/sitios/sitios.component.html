@@ -7,12 +7,6 @@
             (click)="cambiarIdioma('es')"> ES </a>
     </form>
 </nav>
-<!--<div class="row rc-banner">
-    <div class="col-md-12 text-center rc-centrado-vertical">
-        <h2 class="rc-titulo1">{{ 'mapa.tituloPrincipal' | translate }}</h2>
-        <p class="rc-titulo2">{{ 'mapa.subtitulo' | translate }}</p>
-    </div>
-</div>-->
 <div class="rc-titlebar row pt-5 pb-3">
     <div class="col-md-12">
         <h3 class="text-center rc-titulo4">{{ 'mapa.titulo' | translate }}</h3>
@@ -21,86 +15,45 @@
         <div class="triangled_colored_separator"></div>
     </div>
 </div>
-<!--
-<div class="row pt-3 pb-1">
-    <div class="col-md-4">
-        <label for="direccionBusquedaOrigen">Lugar de partida</label>
-        <input type="text" class="form-control" placeholder="Ingrese dirección..."
-            (keydown.enter)="$event.preventDefault()" id="direccionBusquedaOrigen"
-            placeholder="{{ 'mapa.buscarSitioInicio'  }}" autocorrect="off" autocapitalize="off" spellcheck="off"
-            #busquedaOrigen [(ngModel)]="direccionBusquedaOrigen">
-    </div>
-    <div class="col-md-4">
-        <label for="direccionBusquedaDestino">Lugar de llegada</label>
-        <input type="text" class="form-control" placeholder="Lugar de llegada" (keydown.enter)="$event.preventDefault()" id="direccionBusquedaDestino" autocorrect="off"
-            autocapitalize="off" spellcheck="off" #busquedaDestino [(ngModel)]="direccionBusquedaDestino">
-    </div>
-    <div class="col-md-4">
-        <label for="distancia">Distancia: {{ distancia }} km</label>
-        <input type="range" id="distancia" [(ngModel)]="distancia" min="1" max="10" step="1">
-    </div>
-</div>
-<div class="row pb-1">
-    <div class="col-md-6">
-        <a class="rc-boton-out" (click)="obtenerSitioCercanos()">Consultar sitios cercanos a mi
-            ubicación</a>
-    </div>
-    <div class="col-md-6">
-        <button class="btn btn-sm btn-block" (click)="obtenerSitioCercanosRuta()">Consultar sitios cercanos a una
-            ruta</button>
-    </div>
-</div>
--->
 <div class="row pt-3">
     <div class="col-md-4">
-        <!--<div class="row" *ngIf="!resultados">
-            <div class="col-md-12 rc-boton-rosa pt-1 pb-1">
-                <a (click)="obtenerSitioCercanos(); resultados = true;">sitios cercanos a mi
-                    ubicación</a>
-            </div>
-        </div>-->
+        
         <div class="row" [style.visibility]="!resultados ? 'visible' : 'collapse' "
             [style.height]="!resultados ? '100%' : '0'">
             <div class="col-md-12">
-                <label for="direccionBusquedaOrigen">Lugar de partida</label>
-                <input type="text" class="form-control" placeholder="Ingrese dirección..."
+                <label for="direccionBusquedaOrigen">{{ 'mapa.lugarPartida' | translate }}</label>
+                <input type="text" class="form-control" 
                     (keydown.enter)="$event.preventDefault()" id="direccionBusquedaOrigen"
-                    placeholder="{{ 'mapa.buscarSitioInicio'  }}" autocorrect="off" autocapitalize="off"
+                    [placeholder]=" 'mapa.ingresarPartida' | translate " autocorrect="off" autocapitalize="off"
                     spellcheck="off" #busquedaOrigen [(ngModel)]="direccionBusquedaOrigen">
             </div>
             <div class="col-md-12">
-                <label for="direccionBusquedaDestino">Lugar de llegada</label>
-                <input type="text" class="form-control" placeholder="Lugar de llegada"
+                <label for="direccionBusquedaDestino">{{ 'mapa.lugarDestino' | translate }}</label>
+                <input type="text" class="form-control" [placeholder]=" 'mapa.ingresarDestino' | translate "
                     (keydown.enter)="$event.preventDefault()" id="direccionBusquedaDestino" autocorrect="off"
                     autocapitalize="off" spellcheck="off" #busquedaDestino [(ngModel)]="direccionBusquedaDestino">
             </div>
             <div class="col-md-12">
-                <label for="distancia">Distancia: {{ distancia }} km</label>
+                <label for="distancia">{{ 'mapa.distanciaKm' | translate }}: {{ distancia }} km</label>
                 <input type="range" id="distancia" [(ngModel)]="distancia" min="1" max="10" step="1">
             </div>
             <div class="col-md-12">
-                <label>Consultar sitios cercanos a:</label>
+                <label>{{ 'mapa.tituloConsultar' | translate }}:</label>
                 <br />
-                <button class="btn btn-sm" (click)="obtenerSitioCercanos(); resultados = true;">Mi
-                    ubicación</button>&nbsp;
-                <button class="btn btn-sm" (click)="obtenerSitioCercanosRuta(); resultados = true;">Ruta</button>
+                <button class="btn btn-sm" (click)="obtenerSitioCercanos(); resultados = true;">{{ 'mapa.miUbicacion' | translate }}</button>&nbsp;
+                <button class="btn btn-sm" (click)="obtenerSitioCercanosRuta(); resultados = true;">{{ 'mapa.ruta' | translate }}</button>
             </div>
-            <!--<div class="offset-md-1 col-md-4 rc-boton-rosa pt-1 pb-1">
-                <a (click)="obtenerSitioCercanos(); resultados = true;">Mi ubicación</a>
-            </div>
-            <div class="offset-md-2 col-md-4 rc-boton-rosa pt-1 pb-1">
-                <a (click)="obtenerSitioCercanosRuta(); resultados = true;">Ruta</a>
-            </div>-->
+            
         </div>
         <div class="row" *ngIf="resultados">
             <div class="col-md-12 rc-boton-rosa pt-1 pb-1">
-                <a (click)="resultados = false">regresar a consultas</a>
+                <a (click)="resultados = false">{{ "mapa.regresar" | translate }}</a>
             </div>
         </div>
         <div class="row" *ngIf="resultados">
             <div class="col-md-12">
                 <div class="input-group">
-                    <input type="text" placeholder="filtrar..." aria-describedby="basic-addon1" [(ngModel)]="searchTerm"
+                    <input type="text" [placeholder]=" 'mapa.filtrar' | translate " aria-describedby="basic-addon1" [(ngModel)]="searchTerm"
                         name="searchTerm" class="rc-input90" id="chat_filter">
                     <div class="input-group-prepend rc-icon">
                         <span class="input-group-text rc-icon" id="basic-addon1">
@@ -109,9 +62,10 @@
                     </div>
                 </div>
             </div>
+            <br/>
             <div class="col-md-12 chat-list">
                 <ng-container *ngFor="let sitio of sitosCercanos | SearchPipeGeneral:searchTerm; let i = index">
-                    <div class="row">
+                    <div class="row" *ngIf="sitio.punto.tipo === 2">
                         <div class="col-md-10">
                             <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
                                 {{sitio.punto.idiomas[idioma].nombre}}
@@ -127,38 +81,11 @@
                         </div>
                     </div>
                 </ng-container>
-                <!--<div class="sidebar-content sidebar-chat">
-                    <div class="chat-list">
-                        <ng-container *ngFor="let sitio of sitosCercanos | SearchPipeGeneral:searchTerm; let i = index">
-        
-                            <div class="chat-user animate fadeUp delay-1" *ngIf="sitio.punto.tipo ===2">
-        
-                                <div class="user-section">
-                                    <div class="row valign-wrapper">
-                                        <div class="col s12">
-                                            <span class="new badge gradient-45deg-purple-deep-orange gradient-shadow"
-                                                data-badge-caption="">{{sitio.punto.distancia}}</span>
-                                            <p class="m-0 blue-grey-text text-darken-4 font-weight-700">
-                                                {{sitio.punto.idiomas[idioma].nombre}}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row valign-wrapper">
-                                        <div class="col s12">
-                                            <p class="m-0 info-text">
-                                                {{sitio.punto.idiomas[idioma].descripcion}}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-        
-                            </div>
-                        </ng-container>
-                    </div>-->
+                
                 <div class="no-data-found" *ngIf="sitosCercanos.length === 0 ">
-                    <h6 class="center">No Results Found</h6>
+                    <h6 class="center">{{ "mapa.sinResultado" | translate }}</h6>
                 </div>
-                <!--</div>-->
+                
             </div>
         </div>
     </div>

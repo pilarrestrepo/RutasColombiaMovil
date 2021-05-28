@@ -16,12 +16,22 @@
         "botonConsultarSitios":"Places around me",
         "tituloListaSitios":"your sites",        
         "tituloMapa":"We show you interesting places to visit very close to you",
-        "buscar":"Search",        
+        "buscar":"Search",
+        "ingresarPartida":"Find a starting point...",
         "ingresarDestino":"Find a travel distination...",
         "buscarSitioInicio":"Enter start location",
         "buscarSitioFin":"Enter end location",
         "distancia":"Places around me at a distance (Km) of",
         "tituloPrincipal": "Welcome to Routes and Travel's",
-        "subtitulo": "Guide about adventure of Colombia"
+        "subtitulo": "Guide about adventure of Colombia",
+        "ruta": "Route",
+        "miUbicacion": "My location",
+        "tituloConsultar": "Find places near to",
+        "lugarPartida": "Starting point",
+        "lugarDestino": "Destination",
+        "distanciaKm": "Distance",
+        "regresar": "Return to find places",
+        "sinResultado": "No Results Found",
+        "filtrar": "filter..."
     }    
 }
